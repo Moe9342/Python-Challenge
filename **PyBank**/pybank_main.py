@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[304]:
+# In[5]:
 
 
 import os
@@ -13,7 +13,7 @@ with open(csvpath,'r') as csvfile:
 
     # CSV reader specifies delimiter and variable that holds contents
     pydata = csv.reader(csvfile, delimiter=',')
-    print(py_data)
+    print(pydata)
     
     # Read the header row first
     csv_header = next(pydata)
@@ -49,13 +49,13 @@ with open(csvpath,'r') as csvfile:
         
         # The greatest increase/decrease in profits (date and amount) over the entire period 
         
-        if current_row > max_value:
-            max_value = current_row
+        if difference > max_value:
+            max_value = difference
             format_max = '${:.0f}'.format(max_value)
             max_row_date = row[0]
             
-        if current_row < min_value: 
-            min_value = current_row
+        if difference < min_value: 
+            min_value = difference
             format_min = '${:.0f}'.format(min_value)
             min_row_date = row[0]
 
@@ -73,14 +73,29 @@ with open(csvpath,'r') as csvfile:
     
     print('Average  Change: ',format_average)
     
-    print("Greatest Increase in Profits: ",max_row_date, "(",format_max,")")
+    print(f"Greatest Increase in Profits: {max_row_date} ({format_max})")
     
-    print("Greatest decrease in Profits: ",min_row_date, "(",format_min,")")  
+    print(f"Greatest decrease in Profits: {min_row_date} ({format_min})") 
+
+
+# In[6]:
+
 
 #save the print result as text
 
-file = open("PyBank_print","w")
-output = "PyBank_HW.ipynb"
-file.write(output)
+file = open("PyBank_print.txt","w")
+
+file.write("Financial Analysis \n")
+file.write("--------------------------------------------- \n")
+file.write(f"Total Months: {str(countrow)} \n")
+
+file.write(f"Total: {str(format_total)}\n")
+
+file.write(f"Average  Change: {format_average}\n")
+
+file.write(f"Greatest Increase in Profits: {max_row_date} ({format_max})\n")
+
+file.write(f"Greatest decrease in Profits: {min_row_date} ({format_min})")
+
 file.close()
 
